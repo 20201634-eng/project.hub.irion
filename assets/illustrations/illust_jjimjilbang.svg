@@ -1,30 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
-  <!-- 찜질방: 강아지, 양머리 수건을 쓴 모습 -->
-  <ellipse cx="200" cy="308" rx="92" ry="76" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
-  <!-- 편안히 모은 팔 -->
-  <ellipse cx="150" cy="330" rx="17" ry="14" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="250" cy="330" rx="17" ry="14" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
-  <!-- 다리 -->
-  <ellipse cx="170" cy="374" rx="22" ry="14" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="230" cy="374" rx="22" ry="14" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
-  <!-- 머리 -->
-  <circle cx="200" cy="192" r="86" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
-  <!-- 늘어진 귀 -->
-  <path d="M120 162 C 80 176, 72 230, 108 254 C 126 264, 138 238, 130 210 C 126 192, 128 176, 120 162 Z" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
-  <path d="M280 162 C 320 176, 328 230, 292 254 C 274 264, 262 238, 270 210 C 274 192, 272 176, 280 162 Z" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
-  <!-- 양머리 찜질방 수건 -->
-  <ellipse cx="200" cy="128" rx="70" ry="46" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
-  <circle cx="140" cy="118" r="22" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
-  <circle cx="260" cy="118" r="22" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
-  <path d="M150 152 Q200 172 250 152" stroke="#4A4358" stroke-width="3.5" fill="none" opacity="0.5"/>
-  <!-- 주둥이 -->
-  <ellipse cx="200" cy="214" rx="40" ry="28" fill="#FCF6EC" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="200" cy="203" rx="10" ry="8" fill="#4A4358"/>
-  <path d="M180 222 Q200 234 220 222" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <!-- 개운한 눈 (반달) -->
-  <path d="M158 182 Q170 172 182 182" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <path d="M218 182 Q230 172 242 182" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- 볼 홍조 (열기로 발그레) -->
-  <ellipse cx="150" cy="212" rx="15" ry="10" fill="#F8C9DC" opacity="0.9"/>
-  <ellipse cx="250" cy="212" rx="15" ry="10" fill="#F8C9DC" opacity="0.9"/>
+  <!-- 찜질방: 불가마 느낌의 따뜻한 3D 돔 -->
+  <defs>
+    <radialGradient id="kilnGlow" cx="50%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFD89A"/>
+      <stop offset="55%" stop-color="#F0A24E"/>
+      <stop offset="100%" stop-color="#D9762E"/>
+    </radialGradient>
+    <radialGradient id="kilnCore" cx="50%" cy="55%" r="55%">
+      <stop offset="0%" stop-color="#FFF3D6"/>
+      <stop offset="70%" stop-color="#FFC978"/>
+      <stop offset="100%" stop-color="#F0A24E"/>
+    </radialGradient>
+    <linearGradient id="kilnBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C97A34"/>
+      <stop offset="100%" stop-color="#9C5A22"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="200" cy="336" rx="120" ry="16" fill="#4A4358" opacity="0.14"/>
+
+  <path d="M60 232 C 60 316, 130 340, 200 340 C 270 340, 340 316, 340 232 L340 320 L60 320 Z" fill="url(#kilnBase)"/>
+
+  <path d="M64 236 C 64 140, 124 78, 200 78 C 276 78, 336 140, 336 236 C 336 288, 276 312, 200 312 C 124 312, 64 288, 64 236 Z" fill="url(#kilnGlow)"/>
+  <path d="M110 236 C 110 168, 148 122, 200 122 C 252 122, 290 168, 290 236 C 290 272, 252 288, 200 288 C 148 288, 110 272, 110 236 Z" fill="url(#kilnCore)"/>
+
+  <circle cx="200" cy="70" r="14" fill="#8A4E1E"/>
+  <path d="M200 56 C 196 40, 204 30, 200 14" stroke="#F5C9A0" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <path d="M232 60 C 230 44, 240 34, 238 18" stroke="#F5C9A0" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+  <path d="M168 60 C 170 44, 160 34, 162 18" stroke="#F5C9A0" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+
+  <path d="M64 236 C 64 140, 124 78, 200 78" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.25"/>
+
+  <ellipse cx="150" cy="180" rx="18" ry="34" fill="#FFFFFF" opacity="0.2"/>
 </svg>

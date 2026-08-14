@@ -442,9 +442,9 @@ function expandCard(card) {
   listPage.classList.add('detail-active');
   backdrop.classList.add('active');
 
-  // 목표 크기/위치 계산 (화면 중앙, 넉넉한 상세 사이즈)
-  const targetWidth = Math.min(window.innerWidth * 0.88, 480);
-  const targetHeight = Math.min(window.innerHeight * 0.82, 620);
+  // 목표 크기/위치 계산 (화면 중앙, 넉넉한 상세 사이즈. 기존 대비 0.8배)
+  const targetWidth = Math.min(window.innerWidth * 0.704, 384);
+  const targetHeight = Math.min(window.innerHeight * 0.656, 496);
   const targetTop = (window.innerHeight - targetHeight) / 2;
   const targetLeft = (window.innerWidth - targetWidth) / 2;
 

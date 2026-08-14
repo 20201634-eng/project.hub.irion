@@ -1,34 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
-  <!-- 2차 동물권 프로젝트: 고양이, 손에 하트 모양 수제간식을 들고 있음 -->
-  <ellipse cx="200" cy="305" rx="90" ry="75" fill="#E3ECF7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 꼬리 -->
-  <path d="M118 330 C 70 320, 60 260, 90 230" stroke="#4A4358" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M118 330 C 70 320, 60 260, 90 230" stroke="#C7DEF2" stroke-width="20" fill="none" stroke-linecap="round"/>
-  <!-- 다리 -->
-  <ellipse cx="168" cy="372" rx="22" ry="14" fill="#C7DEF2" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="232" cy="372" rx="22" ry="14" fill="#C7DEF2" stroke="#4A4358" stroke-width="4"/>
-  <!-- 왼앞발 -->
-  <ellipse cx="150" cy="270" rx="16" ry="13" fill="#E3ECF7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 하트 수제간식 (오른앞발로 들기) -->
-  <path d="M250 232 C 236 218, 214 226, 214 246 C 214 264, 250 286, 250 286 C 250 286, 286 264, 286 246 C 286 226, 264 218, 250 232 Z" fill="#E7A9A0" stroke="#4A4358" stroke-width="3.5" stroke-linejoin="round"/>
-  <ellipse cx="252" cy="258" rx="17" ry="14" fill="#E3ECF7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 머리 -->
-  <circle cx="200" cy="188" r="86" fill="#E3ECF7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 세모 귀 -->
-  <path d="M132 130 L108 62 L172 108 Z" fill="#E3ECF7" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M138 122 L122 82 L164 108 Z" fill="#C7DEF2"/>
-  <path d="M268 130 L292 62 L228 108 Z" fill="#E3ECF7" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M262 122 L278 82 L236 108 Z" fill="#C7DEF2"/>
-  <!-- 주둥이 -->
-  <ellipse cx="200" cy="212" rx="34" ry="22" fill="#FBFDFE" stroke="#4A4358" stroke-width="3.5"/>
-  <path d="M200 200 L192 210 L208 210 Z" fill="#F2A0B8" stroke="#4A4358" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M200 218 Q188 228 178 224 M200 218 Q212 228 222 224" stroke="#4A4358" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <!-- 수염 -->
-  <path d="M120 205 L160 200 M120 218 L160 216 M280 205 L240 200 M280 218 L240 216" stroke="#4A4358" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- 눈 (하트눈 - 애정 표현) -->
-  <path d="M170 176 C 165 168, 153 170, 153 179 C 153 187, 170 197, 170 197 C 170 197, 187 187, 187 179 C 187 170, 175 168, 170 176 Z" fill="#4A4358"/>
-  <path d="M230 176 C 225 168, 213 170, 213 179 C 213 187, 230 197, 230 197 C 230 197, 247 187, 247 179 C 247 170, 235 168, 230 176 Z" fill="#4A4358"/>
-  <!-- 볼 홍조 -->
-  <ellipse cx="150" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
-  <ellipse cx="250" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+  <!-- 2차 동물권 프로젝트: 수제간식 만들기 -> 3D 강아지 뼈다귀 간식 -->
+  <defs>
+    <linearGradient id="boneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF7E6"/>
+      <stop offset="55%" stop-color="#F6E2B8"/>
+      <stop offset="100%" stop-color="#E4C182"/>
+    </linearGradient>
+    <radialGradient id="boneShine" cx="32%" cy="24%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="200" cy="308" rx="132" ry="20" fill="#4A4358" opacity="0.12"/>
+
+  <g transform="rotate(-18 200 200)">
+    <rect x="72" y="164" width="256" height="72" rx="36" fill="url(#boneGrad)"/>
+
+    <circle cx="72" cy="156" r="42" fill="url(#boneGrad)"/>
+    <circle cx="72" cy="244" r="40" fill="url(#boneGrad)"/>
+    <circle cx="328" cy="156" r="40" fill="url(#boneGrad)"/>
+    <circle cx="328" cy="244" r="42" fill="url(#boneGrad)"/>
+
+    <rect x="72" y="164" width="256" height="72" rx="36" fill="url(#boneShine)"/>
+    <circle cx="72" cy="156" r="42" fill="url(#boneShine)"/>
+    <circle cx="328" cy="244" r="42" fill="url(#boneShine)"/>
+
+    <ellipse cx="150" cy="182" rx="44" ry="10" fill="#FFFFFF" opacity="0.45"/>
+  </g>
+
+  <circle cx="286" cy="112" r="7" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="304" cy="98" r="5" fill="#FFFFFF" opacity="0.65"/>
+  <path d="M118 300 q12 -16 24 0" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.2"/>
 </svg>

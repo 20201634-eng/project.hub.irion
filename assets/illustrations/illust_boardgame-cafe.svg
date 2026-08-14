@@ -1,48 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
-  <!-- 보드게임 카페: 고양이, 주사위를 들고 고민하는 귀여운 표정 -->
-  <ellipse cx="200" cy="308" rx="90" ry="74" fill="#EAE6E0" stroke="#4A4358" stroke-width="4"/>
-  <!-- 꼬리 (살짝 위로, 고민하는 느낌) -->
-  <path d="M282 320 C 326 300, 330 250, 300 226" stroke="#4A4358" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M282 320 C 326 300, 330 250, 300 226" stroke="#D8CBF0" stroke-width="20" fill="none" stroke-linecap="round"/>
-  <!-- 다리 -->
-  <ellipse cx="170" cy="374" rx="22" ry="14" fill="#D8CBF0" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="230" cy="374" rx="22" ry="14" fill="#D8CBF0" stroke="#4A4358" stroke-width="4"/>
-  <!-- 왼앞발 (턱 괴는 포즈) -->
-  <ellipse cx="158" cy="238" rx="16" ry="13" fill="#EAE6E0" stroke="#4A4358" stroke-width="4"/>
-  <path d="M158 250 C 158 236, 168 222, 176 216" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <path d="M158 250 C 158 236, 168 222, 176 216" stroke="#EAE6E0" stroke-width="22" stroke-linecap="round" fill="none"/>
-  <!-- 주사위 (오른앞발) -->
-  <g transform="rotate(-12 252 250)">
-    <rect x="230" y="228" width="42" height="42" rx="8" fill="#FBF9FE" stroke="#4A4358" stroke-width="3.5"/>
-    <circle cx="241" cy="239" r="3.5" fill="#4A4358"/>
-    <circle cx="261" cy="239" r="3.5" fill="#4A4358"/>
-    <circle cx="251" cy="249" r="3.5" fill="#4A4358"/>
-    <circle cx="241" cy="259" r="3.5" fill="#4A4358"/>
-    <circle cx="261" cy="259" r="3.5" fill="#4A4358"/>
+  <!-- 보드게임 카페: 3D 주사위 두 개 -->
+  <defs>
+    <linearGradient id="diceTopA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EDE8FB"/>
+    </linearGradient>
+    <linearGradient id="diceSideA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D9CBF7"/>
+      <stop offset="100%" stop-color="#B39CE8"/>
+    </linearGradient>
+    <linearGradient id="diceFrontA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F3EEFC"/>
+      <stop offset="100%" stop-color="#D9CBF7"/>
+    </linearGradient>
+    <linearGradient id="diceTopB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E4F1FB"/>
+    </linearGradient>
+    <linearGradient id="diceSideB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C7E0F5"/>
+      <stop offset="100%" stop-color="#8FBCE6"/>
+    </linearGradient>
+    <linearGradient id="diceFrontB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EBF5FC"/>
+      <stop offset="100%" stop-color="#C7E0F5"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="200" cy="332" rx="112" ry="16" fill="#4A4358" opacity="0.12"/>
+
+  <!-- 뒤쪽 주사위 (하늘색) -->
+  <g>
+    <path d="M232 150 L296 116 L360 150 L360 226 L296 260 L232 226 Z" fill="url(#diceFrontB)"/>
+    <path d="M232 150 L296 184 L296 260 L232 226 Z" fill="url(#diceSideB)"/>
+    <path d="M296 184 L360 150 L360 226 L296 260 Z" fill="url(#diceSideB)" opacity="0.85"/>
+    <path d="M232 150 L296 116 L360 150 L296 184 Z" fill="url(#diceTopB)"/>
+    <circle cx="296" cy="150" r="7" fill="#5B7FB0"/>
   </g>
-  <ellipse cx="252" cy="272" rx="16" ry="13" fill="#EAE6E0" stroke="#4A4358" stroke-width="4"/>
-  <!-- 머리 -->
-  <circle cx="200" cy="188" r="86" fill="#EAE6E0" stroke="#4A4358" stroke-width="4"/>
-  <!-- 세모 귀 -->
-  <path d="M132 130 L108 62 L172 108 Z" fill="#EAE6E0" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M138 122 L122 82 L164 108 Z" fill="#D8CBF0"/>
-  <path d="M268 130 L292 62 L228 108 Z" fill="#EAE6E0" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M262 122 L278 82 L236 108 Z" fill="#D8CBF0"/>
-  <!-- 주둥이 -->
-  <ellipse cx="200" cy="212" rx="34" ry="22" fill="#FBF9FE" stroke="#4A4358" stroke-width="3.5"/>
-  <path d="M200 200 L192 210 L208 210 Z" fill="#F2A0B8" stroke="#4A4358" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M200 218 Q194 224 186 222 M200 218 Q206 224 214 222" stroke="#4A4358" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <!-- 수염 -->
-  <path d="M120 205 L160 200 M120 218 L160 216 M280 205 L240 200 M280 218 L240 216" stroke="#4A4358" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- 고민하는 눈썹 + 눈 -->
-  <path d="M155 158 Q170 150 184 158" stroke="#4A4358" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <circle cx="170" cy="180" r="10" fill="#4A4358"/>
-  <circle cx="230" cy="180" r="10" fill="#4A4358"/>
-  <circle cx="173" cy="177" r="3" fill="#FFFFFF"/>
-  <circle cx="233" cy="177" r="3" fill="#FFFFFF"/>
-  <!-- 물음표 (고민) -->
-  <text x="252" y="130" font-family="sans-serif" font-size="30" fill="#C9B6F0" font-weight="bold">?</text>
-  <!-- 볼 홍조 -->
-  <ellipse cx="150" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
-  <ellipse cx="250" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+
+  <!-- 앞쪽 주사위 (보라) -->
+  <g>
+    <path d="M96 210 L176 168 L256 210 L256 300 L176 342 L96 300 Z" fill="url(#diceFrontA)"/>
+    <path d="M96 210 L176 252 L176 342 L96 300 Z" fill="url(#diceSideA)"/>
+    <path d="M176 252 L256 210 L256 300 L176 342 Z" fill="url(#diceSideA)" opacity="0.85"/>
+    <path d="M96 210 L176 168 L256 210 L176 252 Z" fill="url(#diceTopA)"/>
+
+    <circle cx="176" cy="210" r="9" fill="#7A5FC4"/>
+    <circle cx="150" cy="198" r="9" fill="#7A5FC4"/>
+    <circle cx="202" cy="198" r="9" fill="#7A5FC4"/>
+    <circle cx="150" cy="222" r="9" fill="#7A5FC4"/>
+    <circle cx="202" cy="222" r="9" fill="#7A5FC4"/>
+
+    <circle cx="122" cy="256" r="8" fill="#6E56B8"/>
+    <circle cx="130" cy="286" r="8" fill="#6E56B8"/>
+
+    <circle cx="230" cy="256" r="8" fill="#6E56B8"/>
+    <circle cx="222" cy="286" r="8" fill="#6E56B8"/>
+  </g>
+
+  <ellipse cx="140" cy="230" rx="16" ry="34" fill="#FFFFFF" opacity="0.25"/>
 </svg>

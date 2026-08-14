@@ -1,36 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
-  <!-- 집래방: 강아지, 마이크를 들고 신나게 노래하는 포즈 -->
-  <ellipse cx="200" cy="305" rx="92" ry="76" fill="#EDD9C7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 왼팔 (허리에) -->
-  <path d="M130 300 C 108 288, 102 260, 118 248" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <path d="M130 300 C 108 288, 102 260, 118 248" stroke="#EDD9C7" stroke-width="24" stroke-linecap="round" fill="none"/>
-  <!-- 오른팔 마이크 들기 -->
-  <path d="M270 300 C 295 270, 290 220, 268 190" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <path d="M270 300 C 295 270, 290 220, 268 190" stroke="#EDD9C7" stroke-width="24" stroke-linecap="round" fill="none"/>
-  <!-- 마이크 -->
-  <circle cx="266" cy="178" r="18" fill="#C9B6F0" stroke="#4A4358" stroke-width="3.5"/>
-  <rect x="258" y="192" width="16" height="34" rx="7" fill="#8A8296" stroke="#4A4358" stroke-width="3"/>
-  <!-- 다리 -->
-  <ellipse cx="168" cy="370" rx="22" ry="15" fill="#E3BE9A" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="232" cy="370" rx="22" ry="15" fill="#E3BE9A" stroke="#4A4358" stroke-width="4"/>
-  <!-- 별 튐 (신남 효과) -->
-  <path d="M92 220 l5 12 12 2 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -2 z" fill="#C9B6F0" opacity="0.85"/>
-  <path d="M330 250 l4 9 9 2 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -2 z" fill="#AFD8F0" opacity="0.85"/>
-  <!-- 머리 -->
-  <circle cx="196" cy="185" r="87" fill="#EDD9C7" stroke="#4A4358" stroke-width="4"/>
-  <!-- 늘어진 귀 (한쪽 살짝 튀는 느낌) -->
-  <path d="M116 155 C 76 168, 68 224, 104 248 C 122 258, 134 232, 126 202 C 122 184, 124 168, 116 155 Z" fill="#E3BE9A" stroke="#4A4358" stroke-width="4"/>
-  <path d="M278 150 C 320 158, 334 210, 300 238 C 282 250, 268 226, 274 198 C 278 180, 274 164, 278 150 Z" fill="#E3BE9A" stroke="#4A4358" stroke-width="4"/>
-  <!-- 주둥이 -->
-  <ellipse cx="196" cy="207" rx="40" ry="28" fill="#FCF6EC" stroke="#4A4358" stroke-width="4"/>
-  <ellipse cx="196" cy="196" rx="10" ry="8" fill="#4A4358"/>
-  <!-- 노래하는 입 (크게 벌린 O) -->
-  <ellipse cx="196" cy="222" rx="16" ry="14" fill="#4A4358"/>
-  <ellipse cx="196" cy="226" rx="9" ry="7" fill="#F2A0B8"/>
-  <!-- 신난 눈 -->
-  <path d="M154 168 Q166 156 178 168" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <path d="M214 168 Q226 156 238 168" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- 볼 홍조 -->
-  <ellipse cx="146" cy="198" rx="14" ry="9" fill="#F8C9DC" opacity="0.8"/>
-  <ellipse cx="246" cy="198" rx="14" ry="9" fill="#F8C9DC" opacity="0.8"/>
+  <!-- 집래방: 노래방 -> 3D 핸드마이크 -->
+  <defs>
+    <linearGradient id="micHead" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CBD1EA"/>
+      <stop offset="50%" stop-color="#8A91BC"/>
+      <stop offset="100%" stop-color="#565D82"/>
+    </linearGradient>
+    <linearGradient id="micHandle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0D48A"/>
+      <stop offset="50%" stop-color="#DDB255"/>
+      <stop offset="100%" stop-color="#B47F2C"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="212" cy="330" rx="86" ry="16" fill="#4A4358" opacity="0.12"/>
+
+  <g transform="rotate(28 200 200)">
+    <!-- 손잡이 -->
+    <rect x="176" y="210" width="56" height="140" rx="28" fill="url(#micHandle)"/>
+    <rect x="176" y="210" width="24" height="140" rx="12" fill="#FFFFFF" opacity="0.2"/>
+    <rect x="176" y="222" width="56" height="8" fill="#96631C" opacity="0.5"/>
+    <rect x="176" y="242" width="56" height="8" fill="#96631C" opacity="0.5"/>
+    <rect x="176" y="262" width="56" height="8" fill="#96631C" opacity="0.5"/>
+
+    <!-- 마이크 헤드 -->
+    <rect x="146" y="70" width="116" height="164" rx="58" fill="url(#micHead)"/>
+    <rect x="146" y="70" width="52" height="164" rx="26" fill="#FFFFFF" opacity="0.18"/>
+
+    <g opacity="0.85">
+      <circle cx="174" cy="104" r="4.5" fill="#3F4666"/>
+      <circle cx="204" cy="98" r="4.5" fill="#3F4666"/>
+      <circle cx="234" cy="104" r="4.5" fill="#3F4666"/>
+      <circle cx="166" cy="128" r="4.5" fill="#3F4666"/>
+      <circle cx="204" cy="122" r="4.5" fill="#3F4666"/>
+      <circle cx="242" cy="128" r="4.5" fill="#3F4666"/>
+      <circle cx="174" cy="152" r="4.5" fill="#3F4666"/>
+      <circle cx="204" cy="146" r="4.5" fill="#3F4666"/>
+      <circle cx="234" cy="152" r="4.5" fill="#3F4666"/>
+      <circle cx="184" cy="176" r="4.5" fill="#3F4666"/>
+      <circle cx="224" cy="176" r="4.5" fill="#3F4666"/>
+    </g>
+  </g>
+
+  <path d="M300 150 C 314 140, 314 122, 300 112" stroke="#C9B6F0" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M316 166 C 340 148, 340 114, 316 96" stroke="#C9B6F0" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.55"/>
+
+  <path d="M96 150 L102 168 L120 172 L102 176 L96 194 L90 176 L72 172 L90 168 Z" fill="#AFD8F0"/>
+  <circle cx="120" cy="220" r="7" fill="#F2A0B8" opacity="0.85"/>
 </svg>
