@@ -277,6 +277,7 @@ button {
 
 /* ===== 카드 로우 (GSAP 무한 슬라이더 뷰포트) ===== */
 .card-row {
+  --card-gap: 28px;
   overflow: hidden;
   width: 100%;
   padding: 30px 0 40px;
@@ -285,43 +286,59 @@ button {
   mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
 }
 
+/* '공식 행사' 섹션만 간격을 살짝 좁힌다(기본 대비 약 12%, js/script.js의
+   syncTrackGap이 이 배율을 최종 gap 값에 곱한다). 섹션마다 독립적인 값을
+   가질 수 있도록 전역 변수를 공유하지 않고 수식자 클래스로 분리한다 */
+.card-row {
+  --card-gap-scale: 1;
+}
+.card-row--official {
+  --card-gap-scale: 0.88;
+}
+
 .card-track {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   width: max-content;
-  gap: 28px;
+  gap: var(--card-gap);
 }
 
-/* GSAP horizontalLoop이 카드 하나하나를 개별적으로 x축 이동시키고, 동시에
-   뷰포트 중앙과의 거리에 따라 scale/opacity/z-index를 매 프레임 갱신하므로
-   (js/script.js의 attachCenterFocus), 이 래퍼가 위치·크기 연출을 전담하고
-   .card 자체는 그 안에서 호버 바운스 등 자기 자신의 transform을 자유롭게
-   쓸 수 있게 분리한다. */
+/* GSAP horizontalLoop이 .card-slide의 x/xPercent(위치)만 전담한다. 확대/그림자
+   등 시각 강조를 이 요소에 걸면, horizontalLoop이 리사이즈 때 재측정하는 카드
+   사이 간격이 그 순간의 scale에 의해 왜곡되어 굳어버리므로 절대 여기에 scale을
+   걸지 않는다 — 강조 연출은 전부 안쪽 .card가 담당한다(js/script.js의
+   attachCenterFocus 참고). z-index만 예외로, 이웃 .card-slide 사이의 쌓임
+   순서를 바꾸려면 스태킹 컨텍스트를 가진 이 요소에 줘야 한다. */
 .card-slide {
   position: relative;
   flex: 0 0 auto;
-  transform-origin: center center;
+}
+
+.card-slide.is-center {
+  z-index: 30;
 }
 
 /* ===== 카드 (직사각형, 기울임 없음) ===== */
+/* 기본 크기는 이전 대비 1.3배 — 너비/높이/모서리/패딩/내부 아이콘/폰트가
+   같은 비율로 함께 커져야 커진 카드 안에서 여백이 어색해지지 않는다 */
 .card {
   position: relative;
-  width: 210px;
-  min-height: 312px;
-  border-radius: 20px;
+  width: 328px;
+  min-height: 486px;
+  border-radius: 31px;
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  padding: 26px 22px 24px;
+  padding: 40px 34px 38px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(120, 100, 160, 0.16);
-  opacity: 1;
-  transition: transform 0.4s var(--bounce), box-shadow 0.35s ease, border-color 0.35s ease;
+  opacity: 0.8;
+  transition: transform 0.4s var(--bounce), opacity 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .card-row.cards-in .card {
@@ -335,6 +352,7 @@ button {
 
 .card:hover {
   transform: scale(1.06) translateY(-10px);
+  opacity: 1;
   box-shadow: 0 20px 40px rgba(120, 100, 160, 0.28);
 }
 
@@ -342,10 +360,14 @@ button {
   transform: scale(0.97) translateY(-4px);
 }
 
-/* 뷰포트 중앙에 가장 가까운 카드를 강조 (js/script.js attachCenterFocus가 토글) */
+/* 뷰포트 중앙에 가장 가까운 카드를 강조 (js/script.js attachCenterFocus가 토글).
+   scale은 반드시 여기(.card)에만 걸어야 한다 — .card-slide는 GSAP의 위치 계산
+   전용이라 위 주석 참고. */
 .card-slide.is-center .card {
+  transform: scale(1.24);
+  opacity: 1;
   border-color: var(--accent-strong);
-  box-shadow: 0 20px 40px rgba(120, 100, 160, 0.3);
+  box-shadow: 0 28px 54px rgba(120, 100, 160, 0.4);
 }
 
 /* 카드별 그라데이션 톤 (보라 강조 / 하늘색 강조 번갈아) */
@@ -357,23 +379,23 @@ button {
 }
 
 .card-illust {
-  width: 108px;
-  height: 108px;
-  margin-bottom: 18px;
+  width: 169px;
+  height: 169px;
+  margin-bottom: 29px;
   filter: drop-shadow(0 6px 10px rgba(120, 100, 160, 0.18));
 }
 
 .card-name {
   font-family: 'Jua', 'Yeonseong', sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.69rem;
   font-weight: normal;
   color: var(--text-dark);
-  margin-bottom: 8px;
+  margin-bottom: 13px;
 }
 
 .card-desc {
   font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
-  font-size: 0.85rem;
+  font-size: 1.33rem;
   line-height: 1.55;
   color: var(--text-soft);
 }
@@ -474,20 +496,20 @@ button {
 
 /* ===== 반응형 ===== */
 @media (max-width: 860px) {
-  .card-track {
-    gap: 18px;
+  .card-row {
+    --card-gap: 18px;
   }
   .card {
-    width: 180px;
-    min-height: 268px;
+    width: 281px;
+    min-height: 419px;
   }
-  .card-illust { width: 88px; height: 88px; }
+  .card-illust { width: 138px; height: 138px; }
 }
 
 @media (max-width: 560px) {
   .card {
-    width: min(58vw, 200px);
-    min-height: 300px;
+    width: min(91vw, 312px);
+    min-height: 468px;
   }
   .card:hover { transform: scale(1.04) translateY(-6px); }
 }

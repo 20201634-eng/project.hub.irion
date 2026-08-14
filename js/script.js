@@ -271,20 +271,26 @@ function horizontalLoop(items, config) {
 
 // ===== 뷰포트 중앙 포커스 연출 =====
 // GSAP 공식 "Infinite Card Slider" 쇼케이스처럼, 뷰포트 중앙에 가장 가까운
-// 카드는 크고 또렷하게, 멀어질수록 작고 흐릿하게 보이도록 매 프레임 갱신한다.
-// horizontalLoop이 이미 .card-slide에 x/xPercent를 트윈하고 있으므로, 여기서
-// 같은 요소에 scale/opacity/zIndex만 추가로 set해도 GSAP가 하나의 transform으로
-// 합쳐 써서 서로 덮어쓰지 않는다.
+// 카드 딱 하나만 크고 또렷하게 강조한다.
+//
+// 중요: horizontalLoop은 리사이즈 시 populateWidths()에서 .card-slide를
+// getBoundingClientRect()로 다시 측정해 카드 사이 간격(spaceBefore)을 재계산한다.
+// 만약 .card-slide 자체에 scale을 걸어두면, 그 시점에 어떤 카드가 확대되어
+// 있었는지에 따라 "정상 간격"이 왜곡된 채로 굳어버려 간격이 카드마다 달라 보이는
+// 버그가 생긴다. 그래서 scale/그림자 등 시각 강조는 반드시 안쪽 .card에만 걸고,
+// .card-slide는 GSAP의 x/xPercent(위치) 전용으로 남겨둔다.
+//
+// 또한 모든 카드를 거리 기반으로 연속적으로 확대/축소하면 스크롤 중 인접
+// 카드쌍마다 겹침 정도가 계속 달라져 간격이 제각각으로 보인다. 그래서 "중앙
+// 카드 1개만 강조 / 나머지는 전부 동일한 기본 상태"인 이진 상태로 단순화하고,
+// 중앙 카드가 바뀔 때만(매 프레임이 아니라) 클래스를 토글해 CSS transition이
+// 자연스럽게 애니메이션하도록 한다.
 function attachCenterFocus(viewport, slides) {
-  slides.forEach((slide) => {
-    slide.addEventListener('mouseenter', () => slide.classList.add('is-hovered'));
-    slide.addEventListener('mouseleave', () => slide.classList.remove('is-hovered'));
-  });
+  let currentCenter = null;
 
   function update() {
     const viewportRect = viewport.getBoundingClientRect();
     const viewportCenter = viewportRect.left + viewportRect.width / 2;
-    const maxDist = viewportRect.width / 2 || 1;
     let closestSlide = null;
     let closestDist = Infinity;
 
@@ -292,19 +298,17 @@ function attachCenterFocus(viewport, slides) {
       const rect = slide.getBoundingClientRect();
       const slideCenter = rect.left + rect.width / 2;
       const dist = Math.abs(slideCenter - viewportCenter);
-      const t = Math.min(dist / maxDist, 1);
-      const scale = gsap.utils.interpolate(1.12, 0.78, t);
-      const opacity = gsap.utils.interpolate(1, 0.55, t);
-      const zIndex = slide.classList.contains('is-hovered') ? 999 : Math.round((1 - t) * 100);
-      gsap.set(slide, { scale, opacity, zIndex });
-
       if (dist < closestDist) {
         closestDist = dist;
         closestSlide = slide;
       }
     });
 
-    slides.forEach((s) => s.classList.toggle('is-center', s === closestSlide));
+    if (closestSlide !== currentCenter) {
+      if (currentCenter) currentCenter.classList.remove('is-center');
+      closestSlide.classList.add('is-center');
+      currentCenter = closestSlide;
+    }
   }
 
   gsap.ticker.add(update);
@@ -330,17 +334,47 @@ function buildInfiniteSlider(viewport, cardsData, { reverse = false, speed = 55 
   // 카드 세트 한 벌의 폭이 뷰포트보다 좁으면 루프가 도는 동안 빈 공간이 보이거나
   // 같은 카드가 두 번 보일 수 있다. 카드 사이 간격을 벌려서 한 벌의 폭이 뷰포트
   // 폭 이상이 되도록 만들면(뷰포트에는 항상 서로 다른 카드만 보이게 됨) 이를 없앤다.
-  const viewportWidth = viewport.clientWidth || window.innerWidth;
-  const baseWidth = track.scrollWidth;
-  const baseGap = parseFloat(getComputedStyle(track).columnGap) || 28;
-  const extraGapPerCard = Math.max(0, viewportWidth - baseWidth) / cardsData.length;
-  track.style.gap = (baseGap + extraGapPerCard) + 'px';
+  //
+  // 카드 너비는 getComputedStyle(...).width로 읽는다 — getBoundingClientRect는
+  // 중앙 강조 카드의 scale(transform)까지 포함된 "보이는" 크기를 반환하므로,
+  // 그 순간 어떤 카드가 확대되어 있었는지에 따라 계산이 흔들린다. computed width는
+  // transform의 영향을 받지 않는 레이아웃 크기라 항상 안정적이다. 같은 이유로,
+  // 매번 새로 계산해 적용하지 이전에 적용한 gap 위에 누적하지 않는다(그러면
+  // 리사이즈를 반복할 때마다 오차가 쌓인다).
+  // horizontalLoop은 "마지막 카드 -> 첫 카드로 되감기는" 이음매 구간의 간격을
+  // spaceBefore[0](= 트랙의 첫 카드 앞 여백, 기본 0)로 계산한다. 우리 트랙은
+  // 앞쪽 padding이 없으므로 이 값이 항상 0이라, 카드 사이 간격이 아무리 넓어도
+  // 루프가 이어지는 지점(마지막 카드->첫 카드)에서만 간격이 0에 가깝게 붙어
+  // 보이는 문제가 생긴다. config.paddingRight를 현재 gap 값으로 채워주면
+  // horizontalLoop이 이 이음매 구간에도 동일한 간격을 확보한다.
+  const loopConfig = { repeat: -1, speed: speed / 100, reversed: reverse, paddingRight: 0 };
 
-  const tl = horizontalLoop(slides, {
-    repeat: -1,
-    speed: speed / 100,
-    reversed: reverse
-  });
+  // '공식 행사'처럼 특정 섹션만 다른 섹션보다 살짝 좁은 간격을 쓰도록,
+  // .card-row에 붙은 --card-gap-scale(기본 1, .card-row--official은 0.88)을
+  // 최종 gap에 곱한다. 뷰포트를 채우기 위해 늘어난 간격에도 똑같이 곱해야
+  // 넓은 화면에서도 두 섹션의 간격 차이가 실제로 보인다.
+  const syncTrackGap = () => {
+    const sampleCard = slides[0].querySelector('.card');
+    const cardWidth = parseFloat(getComputedStyle(sampleCard).width) || sampleCard.getBoundingClientRect().width;
+    const rowStyle = getComputedStyle(viewport);
+    const baseGap = parseFloat(rowStyle.getPropertyValue('--card-gap')) || 28;
+    const gapScale = parseFloat(rowStyle.getPropertyValue('--card-gap-scale')) || 1;
+    const viewportWidth = viewport.clientWidth || window.innerWidth;
+    const n = cardsData.length;
+    const neededGap = n > 1 ? (viewportWidth - cardWidth * n) / (n - 1) : baseGap;
+    const gap = Math.max(baseGap, neededGap) * gapScale;
+    track.style.gap = gap + 'px';
+    loopConfig.paddingRight = gap;
+  };
+
+  syncTrackGap();
+  // horizontalLoop도 리사이즈 시 카드 위치를 다시 측정하므로(populateWidths),
+  // 간격이 바뀐 *다음*에 그 재측정이 일어나야 한다. addEventListener는 등록
+  // 순서대로 실행되므로, horizontalLoop을 만들기 전에 여기서 먼저 리스너를
+  // 붙여 syncTrackGap이 항상 먼저 실행되도록 한다.
+  window.addEventListener('resize', syncTrackGap);
+
+  const tl = horizontalLoop(slides, loopConfig);
 
   attachCenterFocus(viewport, slides);
 
