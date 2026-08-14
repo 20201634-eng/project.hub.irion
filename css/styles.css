@@ -7,6 +7,17 @@
   font-display: swap;
 }
 
+/* KCC은영체 — 한국저작권위원회 공유마당, CCL-저작자표시(상업적 사용 가능).
+   라이선스상 저작자 표시 의무가 있음: "KCC은영체 | 한국저작권위원회 (공유마당)".
+   출처: https://noonnu.cc/font_page/85 */
+@font-face {
+  font-family: 'KCC Eunyoung';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KCC-eunyoung-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== 변수 ===== */
 :root {
   --bg-ivory: #FBF7F1;
@@ -244,6 +255,9 @@ button {
 /* ===== 리스트 페이지 헤더 ===== */
 .list-header {
   text-align: center;
+  /* 리스트 페이지 top padding(64px)에 더해, 타이틀이 아래로 살짝 내려와
+     보이도록 히어로 컨테이너 자체에 추가 여백(기존 대비 약 1.75배)을 둔다 */
+  padding-top: 48px;
   margin-bottom: 64px;
 }
 
@@ -255,7 +269,7 @@ button {
 }
 
 .list-subtitle {
-  font-family: 'BM DOHYEON', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-family: 'KCC Eunyoung', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
   margin-top: 14px;
   font-size: 2rem;
   color: rgba(255, 255, 255, 0.86);
@@ -284,7 +298,7 @@ button {
 
 .section-title {
   font-family: 'BM DOHYEON', 'Jua', 'Yeonseong', sans-serif;
-  font-size: clamp(3rem, 6.8vw, 3.8rem);
+  font-size: clamp(1.5rem, 3.4vw, 1.9rem);
   margin-bottom: 52px;
   padding-left: 4px;
   color: #fff;
