@@ -385,14 +385,10 @@ function buildInfiniteSlider(viewport, cardsData, { reverse = false, speed = 55 
   return tl;
 }
 
-const rowOfficial = document.getElementById('row-official');
-const rowMemory = document.getElementById('row-memory');
-const sliderTweens = [
-  buildInfiniteSlider(rowOfficial, officialCards, { reverse: false, speed: 55 }),
-  buildInfiniteSlider(rowMemory, memoryCards, { reverse: true, speed: 55 })
-];
-
 // ===== 인트로 -> 리스트 전환 =====
+// GSAP 없이 순수 CSS class 토글로만 동작한다. 아래 카드 슬라이더 초기화가
+// (CDN 차단, 라이브러리 버전 문제 등으로) 실패하더라도 이 핵심 전환만큼은
+// 항상 살아있도록 슬라이더 코드보다 먼저, 그리고 완전히 독립적으로 배치한다.
 const introPage = document.getElementById('intro-page');
 const listPage = document.getElementById('list-page');
 const enterBtn = document.getElementById('enter-btn');
@@ -408,6 +404,26 @@ enterBtn.addEventListener('click', () => {
     row.classList.add('cards-in');
   });
 });
+
+// ===== 카드 무한 슬라이더 초기화 (GSAP 필요) =====
+// GSAP이 어떤 이유로든(CDN 차단, 로드 실패 등) 없으면 이 블록만 조용히
+// 건너뛰고, 위에서 이미 연결된 Enter 버튼 전환은 그대로 살아있게 한다.
+const rowOfficial = document.getElementById('row-official');
+const rowMemory = document.getElementById('row-memory');
+let sliderTweens = [];
+
+if (typeof gsap === 'undefined') {
+  console.error('[script.js] GSAP을 찾을 수 없어 카드 슬라이더를 건너뜁니다. js/vendor/gsap.min.js가 index.html보다 먼저 로드되는지 확인하세요.');
+} else {
+  try {
+    sliderTweens = [
+      buildInfiniteSlider(rowOfficial, officialCards, { reverse: false, speed: 55 }),
+      buildInfiniteSlider(rowMemory, memoryCards, { reverse: true, speed: 55 })
+    ];
+  } catch (err) {
+    console.error('[script.js] 카드 슬라이더 초기화 중 오류가 발생했습니다:', err);
+  }
+}
 
 // ===== 카드 확장 / 축소 (인라인 확장, FLIP 애니메이션) =====
 const backdrop = document.getElementById('backdrop');
