@@ -146,36 +146,209 @@ function buildCard(data) {
   return card;
 }
 
-// ===== GSAP 무한 카드 슬라이더 =====
-// 카드 세트를 화면 폭보다 넉넉히 반복 배치한 뒤, 트랙을 카드 한 세트 너비만큼
-// 일정한 속도로 이동시키고 repeat: -1 로 되감아 끊김 없이 반복되도록 한다.
+// ===== GSAP 공식 seamless 무한 루프 헬퍼 (horizontalLoop) =====
+// GreenSock(GSAP 개발사)이 공식적으로 배포하는 헬퍼 함수. 트랙 전체를 한 덩어리로
+// 옮기고 되감는 방식이 아니라, 카드 하나하나를 개별적으로 xPercent 트윈하다가
+// 화면 밖으로 나가면 반대쪽 끝으로 이어붙이는 방식이라 세트를 여러 번 복제할
+// 필요가 없고, "같은 카드가 화면에 동시에 두 번 보이는" 문제가 구조적으로
+// 발생하지 않는다. (출처: GSAP 공식 헬퍼 함수 모음 - Seamless Looping)
+function horizontalLoop(items, config) {
+  let timeline;
+  items = gsap.utils.toArray(items);
+  config = config || {};
+  gsap.context(() => {
+    let onChange = config.onChange,
+      lastIndex = 0,
+      tl = gsap.timeline({
+        repeat: config.repeat,
+        onUpdate: onChange && function () {
+          let i = tl.closestIndex();
+          if (lastIndex !== i) {
+            lastIndex = i;
+            onChange(items[i], i);
+          }
+        },
+        paused: config.paused,
+        defaults: { ease: 'none' },
+        onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
+      }),
+      length = items.length,
+      startX = items[0].offsetLeft,
+      times = [],
+      widths = [],
+      spaceBefore = [],
+      xPercents = [],
+      curIndex = 0,
+      center = config.center,
+      pixelsPerSecond = (config.speed || 1) * 100,
+      snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1),
+      timeOffset = 0,
+      container = center === true ? items[0].parentNode : gsap.utils.toArray(center)[0] || items[0].parentNode,
+      totalWidth,
+      getTotalWidth = () =>
+        items[length - 1].offsetLeft +
+        (xPercents[length - 1] / 100) * widths[length - 1] -
+        startX +
+        spaceBefore[0] +
+        items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], 'scaleX') +
+        (parseFloat(config.paddingRight) || 0),
+      populateWidths = () => {
+        let b1 = container.getBoundingClientRect(), b2;
+        items.forEach((el, i) => {
+          widths[i] = parseFloat(gsap.getProperty(el, 'width', 'px'));
+          xPercents[i] = snap(
+            (parseFloat(gsap.getProperty(el, 'x', 'px')) / widths[i]) * 100 + gsap.getProperty(el, 'xPercent')
+          );
+          b2 = el.getBoundingClientRect();
+          spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
+          b1 = b2;
+        });
+        gsap.set(items, { xPercent: (i) => xPercents[i] });
+        totalWidth = getTotalWidth();
+      },
+      timeWrap,
+      populateOffsets = () => {
+        timeOffset = center ? (tl.duration() * (container.offsetWidth / 2)) / totalWidth : 0;
+        center &&
+          times.forEach((t, i) => {
+            times[i] = timeWrap(tl.labels['label' + i] + (tl.duration() * widths[i]) / 2 / totalWidth - timeOffset);
+          });
+      },
+      populateTimeline = () => {
+        let i, item, curX, distanceToStart, distanceToLoop;
+        tl.clear();
+        for (i = 0; i < length; i++) {
+          item = items[i];
+          curX = (xPercents[i] / 100) * widths[i];
+          distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
+          distanceToLoop = distanceToStart + widths[i] * gsap.getProperty(item, 'scaleX');
+          tl.to(
+            item,
+            { xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100), duration: distanceToLoop / pixelsPerSecond },
+            0
+          )
+            .fromTo(
+              item,
+              { xPercent: snap(((curX - distanceToLoop + totalWidth) / widths[i]) * 100) },
+              {
+                xPercent: xPercents[i],
+                duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+                immediateRender: false
+              },
+              distanceToLoop / pixelsPerSecond
+            )
+            .add('label' + i, distanceToStart / pixelsPerSecond);
+          times[i] = distanceToStart / pixelsPerSecond;
+        }
+        timeWrap = gsap.utils.wrap(0, tl.duration());
+      },
+      onResize = () => {
+        let progress = tl.progress();
+        tl.progress(0, true);
+        populateWidths();
+        populateTimeline();
+        populateOffsets();
+        tl.progress(progress, true);
+      };
+
+    gsap.set(items, { x: 0 });
+    populateWidths();
+    populateTimeline();
+    populateOffsets();
+    window.addEventListener('resize', onResize);
+
+    tl.times = times;
+    tl.progress(1, true).progress(0, true); // 최초 렌더링 미리 계산(성능)
+    if (config.reversed) {
+      tl.vars.onReverseComplete();
+      tl.reverse();
+    }
+
+    timeline = tl;
+  });
+  return timeline;
+}
+
+// ===== 뷰포트 중앙 포커스 연출 =====
+// GSAP 공식 "Infinite Card Slider" 쇼케이스처럼, 뷰포트 중앙에 가장 가까운
+// 카드는 크고 또렷하게, 멀어질수록 작고 흐릿하게 보이도록 매 프레임 갱신한다.
+// horizontalLoop이 이미 .card-slide에 x/xPercent를 트윈하고 있으므로, 여기서
+// 같은 요소에 scale/opacity/zIndex만 추가로 set해도 GSAP가 하나의 transform으로
+// 합쳐 써서 서로 덮어쓰지 않는다.
+function attachCenterFocus(viewport, slides) {
+  slides.forEach((slide) => {
+    slide.addEventListener('mouseenter', () => slide.classList.add('is-hovered'));
+    slide.addEventListener('mouseleave', () => slide.classList.remove('is-hovered'));
+  });
+
+  function update() {
+    const viewportRect = viewport.getBoundingClientRect();
+    const viewportCenter = viewportRect.left + viewportRect.width / 2;
+    const maxDist = viewportRect.width / 2 || 1;
+    let closestSlide = null;
+    let closestDist = Infinity;
+
+    slides.forEach((slide) => {
+      const rect = slide.getBoundingClientRect();
+      const slideCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(slideCenter - viewportCenter);
+      const t = Math.min(dist / maxDist, 1);
+      const scale = gsap.utils.interpolate(1.12, 0.78, t);
+      const opacity = gsap.utils.interpolate(1, 0.55, t);
+      const zIndex = slide.classList.contains('is-hovered') ? 999 : Math.round((1 - t) * 100);
+      gsap.set(slide, { scale, opacity, zIndex });
+
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestSlide = slide;
+      }
+    });
+
+    slides.forEach((s) => s.classList.toggle('is-center', s === closestSlide));
+  }
+
+  gsap.ticker.add(update);
+}
+
+// ===== 카드 무한 슬라이더 배치 =====
 function buildInfiniteSlider(viewport, cardsData, { reverse = false, speed = 55 } = {}) {
   const track = document.createElement('div');
   track.className = 'card-track';
   viewport.appendChild(track);
 
-  cardsData.forEach(d => track.appendChild(buildCard(d)));
-  const unitWidth = track.scrollWidth;
-
-  const viewportWidth = viewport.clientWidth || window.innerWidth;
-  const copiesNeeded = Math.max(2, Math.ceil(viewportWidth / unitWidth) + 2);
-  for (let i = 1; i < copiesNeeded; i++) {
-    cardsData.forEach(d => track.appendChild(buildCard(d)));
-  }
-
-  gsap.set(track, { x: reverse ? -unitWidth : 0 });
-  const tween = gsap.to(track, {
-    x: reverse ? 0 : -unitWidth,
-    duration: unitWidth / speed,
-    ease: 'none',
-    repeat: -1
+  // 카드는 위치 이동(GSAP)을 담당하는 .card-slide 래퍼로 한 번 감싼다.
+  // 이렇게 분리해야 GSAP가 옮기는 transform과 .card 자체의 호버 바운스
+  // transform이 같은 속성을 두고 서로 충돌하지 않는다.
+  const slides = cardsData.map((d) => {
+    const slide = document.createElement('div');
+    slide.className = 'card-slide';
+    slide.appendChild(buildCard(d));
+    track.appendChild(slide);
+    return slide;
   });
 
-  // 마우스를 올리면 천천히, 벗어나면 다시 원래 속도로
-  viewport.addEventListener('mouseenter', () => tween.timeScale(0.3));
-  viewport.addEventListener('mouseleave', () => tween.timeScale(1));
+  // 카드 세트 한 벌의 폭이 뷰포트보다 좁으면 루프가 도는 동안 빈 공간이 보이거나
+  // 같은 카드가 두 번 보일 수 있다. 카드 사이 간격을 벌려서 한 벌의 폭이 뷰포트
+  // 폭 이상이 되도록 만들면(뷰포트에는 항상 서로 다른 카드만 보이게 됨) 이를 없앤다.
+  const viewportWidth = viewport.clientWidth || window.innerWidth;
+  const baseWidth = track.scrollWidth;
+  const baseGap = parseFloat(getComputedStyle(track).columnGap) || 28;
+  const extraGapPerCard = Math.max(0, viewportWidth - baseWidth) / cardsData.length;
+  track.style.gap = (baseGap + extraGapPerCard) + 'px';
 
-  return tween;
+  const tl = horizontalLoop(slides, {
+    repeat: -1,
+    speed: speed / 100,
+    reversed: reverse
+  });
+
+  attachCenterFocus(viewport, slides);
+
+  // 마우스를 올리면 천천히, 벗어나면 다시 원래 속도로
+  viewport.addEventListener('mouseenter', () => tl.timeScale(0.3));
+  viewport.addEventListener('mouseleave', () => tl.timeScale(1));
+
+  return tl;
 }
 
 const rowOfficial = document.getElementById('row-official');
@@ -216,7 +389,7 @@ function expandCard(card) {
   // 카드가 빠져도 같은 줄의 다른 카드가 튀지 않도록 자리를 지키는 플레이스홀더 삽입
   placeholder = document.createElement('div');
   placeholder.className = 'card-placeholder';
-  const cardStyle = getComputedStyle(card);
+  const cardStyle = getComputedStyle(card.parentElement); // 카드 간격은 .card-slide 래퍼가 담당
   placeholder.style.width = originalRect.width + 'px';
   placeholder.style.height = originalRect.height + 'px';
   placeholder.style.marginLeft = cardStyle.marginLeft;

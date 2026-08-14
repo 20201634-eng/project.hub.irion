@@ -1,0 +1,179 @@
+/* ===== about.html 전용 스타일 =====
+   index.html은 SPA 구조라 body가 overflow:hidden으로 고정되어 있는데,
+   about은 위→아래로 그냥 스크롤되는 일반 문서 페이지라 이를 풀어준다. */
+html, body.about-body {
+  overflow: auto;
+  height: auto;
+  min-height: 100%;
+}
+
+.about-body {
+  padding: clamp(28px, 6vw, 72px) clamp(20px, 6vw, 96px) 80px;
+}
+
+.about-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s var(--bounce);
+}
+.about-back:hover { color: var(--accent-strong); transform: translateX(-3px); }
+
+.about-header {
+  max-width: 880px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.about-title {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 18px 0 12px;
+}
+
+.about-subtitle {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+.about-section {
+  max-width: 1080px;
+  margin: 0 auto 64px;
+}
+
+.about-section-title {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  margin-bottom: 18px;
+  padding-left: 4px;
+}
+
+.about-intro-card {
+  background: linear-gradient(135deg, rgba(217, 203, 247, 0.45), rgba(199, 224, 245, 0.35));
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: clamp(22px, 4vw, 32px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+/* ===== 집행국원 카드 그리드 ===== */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.member-card {
+  position: relative;
+  border-radius: 28px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 24px 22px;
+  box-shadow: 0 12px 28px rgba(120, 100, 160, 0.14);
+  transition: transform 0.35s var(--bounce), box-shadow 0.3s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 36px rgba(120, 100, 160, 0.24);
+}
+
+.member-card[data-tone="purple"] {
+  background: linear-gradient(135deg, rgba(217, 203, 247, 0.75), rgba(195, 217, 245, 0.55));
+}
+.member-card[data-tone="sky"] {
+  background: linear-gradient(135deg, rgba(199, 224, 245, 0.75), rgba(220, 206, 245, 0.55));
+}
+
+.member-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.member-name {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: 1.15rem;
+  color: var(--text-dark);
+}
+
+.member-role {
+  flex: 0 0 auto;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent-strong);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.member-meta {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed rgba(74, 67, 88, 0.2);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+.member-meta li {
+  display: flex;
+  gap: 8px;
+}
+
+.member-meta li span:first-child {
+  flex: 0 0 56px;
+  color: var(--text-soft);
+}
+
+.member-traits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.member-traits li {
+  padding-left: 14px;
+  position: relative;
+}
+
+.member-traits li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+}
+
+@media (max-width: 560px) {
+  .member-grid { grid-template-columns: 1fr; }
+  .about-header { text-align: left; }
+}

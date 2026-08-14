@@ -251,6 +251,18 @@ button {
   line-height: 1.7;
 }
 
+.about-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+  transition: transform 0.25s var(--bounce);
+}
+.about-link:hover { transform: translateY(-2px); }
+
 .section-block {
   margin-bottom: 76px;
 }
@@ -276,16 +288,28 @@ button {
 .card-track {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   width: max-content;
-  will-change: transform;
+  gap: 28px;
 }
 
-/* ===== 카드 ===== */
+/* GSAP horizontalLoop이 카드 하나하나를 개별적으로 x축 이동시키고, 동시에
+   뷰포트 중앙과의 거리에 따라 scale/opacity/z-index를 매 프레임 갱신하므로
+   (js/script.js의 attachCenterFocus), 이 래퍼가 위치·크기 연출을 전담하고
+   .card 자체는 그 안에서 호버 바운스 등 자기 자신의 transform을 자유롭게
+   쓸 수 있게 분리한다. */
+.card-slide {
+  position: relative;
+  flex: 0 0 auto;
+  transform-origin: center center;
+}
+
+/* ===== 카드 (직사각형, 기울임 없음) ===== */
 .card {
   position: relative;
-  width: 240px;
-  min-height: 300px;
-  border-radius: 32px;
+  width: 210px;
+  min-height: 312px;
+  border-radius: 20px;
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -297,12 +321,8 @@ button {
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(120, 100, 160, 0.16);
   opacity: 1;
-  transform: scale(0.85);
-  transition: transform 0.4s var(--bounce), box-shadow 0.35s ease, z-index 0s;
-  margin-left: -34px;
+  transition: transform 0.4s var(--bounce), box-shadow 0.35s ease, border-color 0.35s ease;
 }
-
-.card:first-child { margin-left: 0; }
 
 .card-row.cards-in .card {
   animation: cardPopIn 0.55s var(--bounce) forwards;
@@ -313,28 +333,19 @@ button {
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.card:nth-child(odd) { transform: rotate(-3deg) scale(1); }
-.card:nth-child(even) { transform: rotate(3deg) scale(1); }
-.card-row.cards-in .card:nth-child(odd) { animation-name: cardPopInOdd; }
-.card-row.cards-in .card:nth-child(even) { animation-name: cardPopInEven; }
-
-@keyframes cardPopInOdd {
-  from { opacity: 0; transform: rotate(-3deg) scale(0.8) translateY(16px); }
-  to { opacity: 1; transform: rotate(-3deg) scale(1) translateY(0); }
-}
-@keyframes cardPopInEven {
-  from { opacity: 0; transform: rotate(3deg) scale(0.8) translateY(16px); }
-  to { opacity: 1; transform: rotate(3deg) scale(1) translateY(0); }
-}
-
 .card:hover {
-  transform: rotate(0deg) scale(1.08) translateY(-10px);
-  z-index: 20;
+  transform: scale(1.06) translateY(-10px);
   box-shadow: 0 20px 40px rgba(120, 100, 160, 0.28);
 }
 
 .card:active {
-  transform: rotate(0deg) scale(0.97) translateY(-4px);
+  transform: scale(0.97) translateY(-4px);
+}
+
+/* 뷰포트 중앙에 가장 가까운 카드를 강조 (js/script.js attachCenterFocus가 토글) */
+.card-slide.is-center .card {
+  border-color: var(--accent-strong);
+  box-shadow: 0 20px 40px rgba(120, 100, 160, 0.3);
 }
 
 /* 카드별 그라데이션 톤 (보라 강조 / 하늘색 강조 번갈아) */
@@ -463,22 +474,20 @@ button {
 
 /* ===== 반응형 ===== */
 @media (max-width: 860px) {
+  .card-track {
+    gap: 18px;
+  }
   .card {
-    margin-left: -18px;
-    width: 200px;
-    min-height: 260px;
+    width: 180px;
+    min-height: 268px;
   }
   .card-illust { width: 88px; height: 88px; }
 }
 
 @media (max-width: 560px) {
   .card {
-    width: min(78vw, 260px);
-  }
-  .card:nth-child(odd), .card:nth-child(even) { transform: rotate(0deg); }
-  .card-row.cards-in .card:nth-child(odd),
-  .card-row.cards-in .card:nth-child(even) {
-    animation-name: cardPopIn;
+    width: min(58vw, 200px);
+    min-height: 300px;
   }
   .card:hover { transform: scale(1.04) translateY(-6px); }
 }
