@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:noonnu.cc)",
+      "Bash(curl *)",
+      "Bash(node --check \"/c/Users/223/Desktop/이리온 집행국/js/script.js\")",
+      "Bash(npm ls *)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Read(//c/Users/223/AppData/Local/Temp/claude/C--Users-223-Desktop--------/6402fb6f-80d2-4a90-8132-f9152a8b1873/scratchpad/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(node *)",
+      "Bash(tasklist //FI \"IMAGENAME eq python.exe\")"
+    ]
+  }
+}

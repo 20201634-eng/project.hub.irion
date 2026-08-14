@@ -1,0 +1,489 @@
+/* ===== 폰트 ===== */
+@font-face {
+  font-family: 'Yeonseong';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMYEONSUNG.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== 변수 ===== */
+:root {
+  --bg-ivory: #FBF7F1;
+  --bg-intro-lavender: #EFE8FB;
+  --text-dark: #4A4358;
+  --text-soft: #6E6580;
+  --accent: #C9B6F0;
+  --accent-strong: #B39CE8;
+  --card-purple-a: #D9CBF7;
+  --card-purple-b: #C3D9F5;
+  --card-sky-a: #C7E0F5;
+  --card-sky-b: #DCCEF5;
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg-ivory);
+  color: var(--text-dark);
+  font-family: 'Yeonseong', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, p, button { margin: 0; padding: 0; font-family: inherit; }
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ===== 페이지 공통 =====
+   각 페이지를 독립된 고정 풀스크린 레이어로 분리 — 비활성 페이지가
+   opacity:0 상태로도 문서 스크롤 영역을 차지해버리는 것을 방지 */
+.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* ===== 인트로 페이지 ===== */
+.intro-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-intro-lavender);
+  transition: transform 0.75s var(--bounce), opacity 0.6s ease;
+  z-index: 5;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* ===== 말풍선 타이틀 클러스터 ===== */
+.bubble-cluster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 12px clamp(16px, 6vw, 60px);
+}
+
+.bubble {
+  position: relative;
+  z-index: 3;
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(2.6rem, 11vw, 5.2rem);
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+  padding: 0.32em 0.85em;
+  border-radius: 999px;
+  box-shadow: 0 14px 30px rgba(140, 115, 200, 0.35);
+  width: fit-content;
+  transform: rotate(var(--rot));
+  cursor: default;
+}
+
+.bubble-1 {
+  --rot: -4deg;
+  align-self: flex-start;
+  background: linear-gradient(135deg, #C9B6F0, #9C82D6);
+}
+
+.bubble-2 {
+  --rot: 3deg;
+  align-self: flex-end;
+  margin-top: -0.12em;
+  background: linear-gradient(135deg, #AFD8F0, #7FB4E8);
+}
+
+.bubble-3 {
+  --rot: -2deg;
+  align-self: flex-start;
+  margin-top: -0.12em;
+  margin-left: clamp(0px, 8vw, 60px);
+  background: linear-gradient(135deg, #D9CBF7, #B39CE8);
+}
+
+/* 커서를 올리면 살짝 약하게 흔들림 */
+.bubble:hover {
+  animation: bubbleWobble 0.55s ease-in-out;
+}
+
+@keyframes bubbleWobble {
+  0%, 100% { transform: rotate(var(--rot)); }
+  25% { transform: rotate(calc(var(--rot) - 3.5deg)); }
+  50% { transform: rotate(calc(var(--rot) + 3deg)); }
+  75% { transform: rotate(calc(var(--rot) - 1.5deg)); }
+}
+
+.sparkle {
+  position: absolute;
+  z-index: 1;
+  animation: sparkleTwinkle 2.4s ease-in-out infinite;
+}
+
+.sparkle-1 { width: 28px; height: 28px; top: -6%; left: 2%; animation-delay: 0s; }
+.sparkle-2 { width: 18px; height: 18px; top: 20%; right: 4%; animation-delay: 0.5s; }
+.sparkle-3 { width: 22px; height: 22px; bottom: 12%; left: -2%; animation-delay: 1s; }
+.sparkle-4 { width: 16px; height: 16px; top: 62%; right: -3%; animation-delay: 1.4s; }
+.sparkle-5 { width: 24px; height: 24px; bottom: -8%; right: 18%; animation-delay: 0.8s; }
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.megaphone {
+  position: absolute;
+  z-index: 4;
+  width: clamp(70px, 16vw, 118px);
+  height: auto;
+  top: 22%;
+  right: -6%;
+  filter: drop-shadow(0 10px 16px rgba(140, 115, 200, 0.35));
+  transform: rotate(8deg);
+}
+
+.intro-subtitle {
+  margin-top: 30px;
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--text-soft);
+  letter-spacing: 0.01em;
+}
+
+.enter-btn {
+  margin-top: 44px;
+  padding: 16px 52px;
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-strong), #A7C8F0);
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(179, 156, 232, 0.45);
+  transition: transform 0.35s var(--bounce), box-shadow 0.35s ease;
+}
+
+.enter-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 14px 32px rgba(179, 156, 232, 0.55);
+}
+
+.enter-btn:active {
+  transform: scale(0.9);
+}
+
+/* ===== 리퀴드 블롭 배경 (SVG path 모핑, 8초 주기) ===== */
+.intro-blob-svg {
+  position: absolute;
+  filter: blur(18px);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.blob-a {
+  width: min(46vw, 420px);
+  height: min(46vw, 420px);
+  top: -8%;
+  left: -10%;
+}
+
+.blob-b {
+  width: min(50vw, 460px);
+  height: min(50vw, 460px);
+  bottom: -12%;
+  right: -10%;
+}
+
+/* 인트로 -> 리스트 슬라이드 전환 */
+.intro-page.slide-up {
+  transform: translateY(-100vh);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.list-page {
+  transform: translateY(100vh);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.75s var(--bounce), opacity 0.6s ease;
+  padding: 64px 6vw 120px;
+}
+
+.list-page.slide-in {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== 리스트 페이지 헤더 ===== */
+.list-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.list-title {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.list-subtitle {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+.section-block {
+  margin-bottom: 76px;
+}
+
+.section-title {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+  margin-bottom: 34px;
+  padding-left: 4px;
+  color: var(--text-dark);
+}
+
+/* ===== 카드 로우 (GSAP 무한 슬라이더 뷰포트) ===== */
+.card-row {
+  overflow: hidden;
+  width: 100%;
+  padding: 30px 0 40px;
+  /* 좌우 가장자리는 카드가 살짝 잘려 보이도록 페이드 처리 (겹쳐진 부채꼴 무드 유지) */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+}
+
+.card-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+}
+
+/* ===== 카드 ===== */
+.card {
+  position: relative;
+  width: 240px;
+  min-height: 300px;
+  border-radius: 32px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 26px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(120, 100, 160, 0.16);
+  opacity: 1;
+  transform: scale(0.85);
+  transition: transform 0.4s var(--bounce), box-shadow 0.35s ease, z-index 0s;
+  margin-left: -34px;
+}
+
+.card:first-child { margin-left: 0; }
+
+.card-row.cards-in .card {
+  animation: cardPopIn 0.55s var(--bounce) forwards;
+}
+
+@keyframes cardPopIn {
+  from { opacity: 0; transform: scale(0.8) translateY(16px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.card:nth-child(odd) { transform: rotate(-3deg) scale(1); }
+.card:nth-child(even) { transform: rotate(3deg) scale(1); }
+.card-row.cards-in .card:nth-child(odd) { animation-name: cardPopInOdd; }
+.card-row.cards-in .card:nth-child(even) { animation-name: cardPopInEven; }
+
+@keyframes cardPopInOdd {
+  from { opacity: 0; transform: rotate(-3deg) scale(0.8) translateY(16px); }
+  to { opacity: 1; transform: rotate(-3deg) scale(1) translateY(0); }
+}
+@keyframes cardPopInEven {
+  from { opacity: 0; transform: rotate(3deg) scale(0.8) translateY(16px); }
+  to { opacity: 1; transform: rotate(3deg) scale(1) translateY(0); }
+}
+
+.card:hover {
+  transform: rotate(0deg) scale(1.08) translateY(-10px);
+  z-index: 20;
+  box-shadow: 0 20px 40px rgba(120, 100, 160, 0.28);
+}
+
+.card:active {
+  transform: rotate(0deg) scale(0.97) translateY(-4px);
+}
+
+/* 카드별 그라데이션 톤 (보라 강조 / 하늘색 강조 번갈아) */
+.card[data-tone="purple"] {
+  background: linear-gradient(135deg, rgba(217, 203, 247, 0.75), rgba(195, 217, 245, 0.55));
+}
+.card[data-tone="sky"] {
+  background: linear-gradient(135deg, rgba(199, 224, 245, 0.75), rgba(220, 206, 245, 0.55));
+}
+
+.card-illust {
+  width: 108px;
+  height: 108px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 6px 10px rgba(120, 100, 160, 0.18));
+}
+
+.card-name {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: 1.08rem;
+  font-weight: normal;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+/* ===== 배경 포커스 처리 ===== */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 67, 88, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 40;
+}
+
+.backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.list-page.detail-active .section-block .card:not(.card-expanded) {
+  filter: blur(3px) brightness(0.82);
+  transition: filter 0.4s ease;
+}
+
+/* ===== 확장 카드 (상세) ===== */
+.card-expanded {
+  position: fixed !important;
+  z-index: 50;
+  cursor: default;
+  transform: none !important;
+  filter: none !important;
+}
+
+.card-detail-close {
+  display: none;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--bounce), background 0.2s ease;
+}
+
+.card-expanded .card-detail-close {
+  display: flex;
+}
+
+.card-detail-close:hover {
+  transform: scale(1.15) rotate(90deg);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.card-detail-body {
+  display: none;
+  width: 100%;
+  text-align: left;
+  margin-top: 6px;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+}
+
+.card-expanded .card-detail-body { display: block; }
+.card-expanded .card-desc { display: none; }
+.card-expanded .card-illust { width: 140px; height: 140px; margin-bottom: 14px; }
+.card-expanded .card-name {
+  font-family: 'Jua', 'Yeonseong', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+
+.detail-row {
+  margin-bottom: 16px;
+}
+
+.detail-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: #fff;
+  background: var(--accent-strong);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.detail-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 860px) {
+  .card {
+    margin-left: -18px;
+    width: 200px;
+    min-height: 260px;
+  }
+  .card-illust { width: 88px; height: 88px; }
+}
+
+@media (max-width: 560px) {
+  .card {
+    width: min(78vw, 260px);
+  }
+  .card:nth-child(odd), .card:nth-child(even) { transform: rotate(0deg); }
+  .card-row.cards-in .card:nth-child(odd),
+  .card-row.cards-in .card:nth-child(even) {
+    animation-name: cardPopIn;
+  }
+  .card:hover { transform: scale(1.04) translateY(-6px); }
+}
+
+.mobile-break { display: none; }
+@media (max-width: 480px) {
+  .mobile-break { display: inline; }
+}

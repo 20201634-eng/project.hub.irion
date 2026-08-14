@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- 강릉 여행: 강아지, 바다를 배경으로 튜브를 끼고 파도를 보는 모습 -->
+  <!-- 파도 배경 -->
+  <path d="M20 340 Q70 320 120 340 T220 340 T320 340 T400 340 L400 400 L0 400 Z" fill="#AFD8F0" opacity="0.55"/>
+  <path d="M0 360 Q60 344 120 360 T240 360 T360 360 T400 360 L400 400 L0 400 Z" fill="#C7DEF2" opacity="0.6"/>
+  <!-- 몸 (튜브 낀 채 앉음) -->
+  <ellipse cx="200" cy="300" rx="70" ry="58" fill="#FBF3E6" stroke="#4A4358" stroke-width="4"/>
+  <!-- 튜브 -->
+  <ellipse cx="200" cy="308" rx="112" ry="42" fill="none" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="200" cy="308" rx="112" ry="42" fill="#F2A0B8" opacity="0.9"/>
+  <ellipse cx="200" cy="308" rx="70" ry="26" fill="#FBF7F1"/>
+  <path d="M92 296 Q140 280 200 280 Q260 280 308 296" stroke="#FFFFFF" stroke-width="6" opacity="0.7" stroke-linecap="round" fill="none"/>
+  <!-- 다리 (튜브 아래로 살짝) -->
+  <ellipse cx="165" cy="358" rx="18" ry="12" fill="#E8D2B8" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="235" cy="358" rx="18" ry="12" fill="#E8D2B8" stroke="#4A4358" stroke-width="4"/>
+  <!-- 머리 -->
+  <circle cx="200" cy="196" r="86" fill="#FBF3E6" stroke="#4A4358" stroke-width="4"/>
+  <!-- 늘어진 귀 -->
+  <path d="M120 165 C 80 178, 72 232, 108 256 C 126 266, 138 240, 130 212 C 126 194, 128 178, 120 165 Z" fill="#E8D2B8" stroke="#4A4358" stroke-width="4"/>
+  <path d="M280 165 C 320 178, 328 232, 292 256 C 274 266, 262 240, 270 212 C 274 194, 272 178, 280 165 Z" fill="#E8D2B8" stroke="#4A4358" stroke-width="4"/>
+  <!-- 주둥이 -->
+  <ellipse cx="200" cy="218" rx="40" ry="28" fill="#FEFBF6" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="200" cy="207" rx="10" ry="8" fill="#4A4358"/>
+  <path d="M180 226 Q200 240 220 226" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- 선글라스 (여행 느낌) -->
+  <rect x="152" y="172" width="42" height="26" rx="13" fill="#7C7390" stroke="#4A4358" stroke-width="3.5"/>
+  <rect x="206" y="172" width="42" height="26" rx="13" fill="#7C7390" stroke="#4A4358" stroke-width="3.5"/>
+  <path d="M194 182 Q200 176 206 182" stroke="#4A4358" stroke-width="3.5" fill="none"/>
+  <!-- 볼 홍조 -->
+  <ellipse cx="148" cy="216" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+  <ellipse cx="252" cy="216" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- 집행국 자체 프로젝트: 강아지, 돗자리 위에 앉아 피크닉 바구니를 옆에 둠 -->
+  <!-- 돗자리 -->
+  <ellipse cx="200" cy="360" rx="150" ry="30" fill="#AFD8F0" opacity="0.55"/>
+  <path d="M60 355 L340 355 M80 340 L320 340 M100 370 L300 370" stroke="#FFFFFF" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+  <!-- 피크닉 바구니 -->
+  <g>
+    <path d="M295 330 L325 330 L318 300 L302 300 Z" fill="#E0C27E" stroke="#4A4358" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M302 300 Q310 280 318 300" stroke="#4A4358" stroke-width="3.5" fill="none"/>
+    <path d="M298 312 L322 312 M298 320 L322 320" stroke="#4A4358" stroke-width="2" opacity="0.6"/>
+    <path d="M300 300 Q310 292 316 300" fill="#C9B6F0" stroke="#4A4358" stroke-width="2.5"/>
+  </g>
+  <!-- 몸 (앉은 자세) -->
+  <ellipse cx="195" cy="310" rx="95" ry="72" fill="#F6E3B4" stroke="#4A4358" stroke-width="4"/>
+  <!-- 앞다리 (앉은) -->
+  <ellipse cx="155" cy="365" rx="20" ry="14" fill="#E0C27E" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="220" cy="365" rx="20" ry="14" fill="#E0C27E" stroke="#4A4358" stroke-width="4"/>
+  <!-- 목 스카프 -->
+  <path d="M158 250 Q195 272 232 250" stroke="#AFD8F0" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <!-- 머리 -->
+  <circle cx="195" cy="195" r="86" fill="#F6E3B4" stroke="#4A4358" stroke-width="4"/>
+  <!-- 늘어진 귀 -->
+  <path d="M116 162 C 78 178, 72 232, 106 254 C 124 264, 136 240, 128 212 C 124 194, 124 176, 116 162 Z" fill="#E0C27E" stroke="#4A4358" stroke-width="4"/>
+  <path d="M274 162 C 312 178, 318 232, 284 254 C 266 264, 254 240, 262 212 C 266 194, 266 176, 274 162 Z" fill="#E0C27E" stroke="#4A4358" stroke-width="4"/>
+  <!-- 주둥이 -->
+  <ellipse cx="195" cy="216" rx="40" ry="28" fill="#FCF6EC" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="195" cy="205" rx="10" ry="8" fill="#4A4358"/>
+  <path d="M174 224 Q195 238 216 224" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- 눈 (편안한 반달) -->
+  <path d="M154 180 Q166 172 178 180" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M212 180 Q224 172 236 180" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- 볼 홍조 -->
+  <ellipse cx="146" cy="206" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+  <ellipse cx="244" cy="206" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+</svg>

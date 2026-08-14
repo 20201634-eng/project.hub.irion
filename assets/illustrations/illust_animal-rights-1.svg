@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- 1차 동물권 프로젝트: 고양이, 채소(당근)를 앞발로 들고 있음 -->
+  <ellipse cx="200" cy="305" rx="90" ry="75" fill="#E7E1F5" stroke="#4A4358" stroke-width="4"/>
+  <!-- 꼬리 -->
+  <path d="M282 330 C 330 320, 340 260, 310 230" stroke="#4A4358" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M282 330 C 330 320, 340 260, 310 230" stroke="#D8CBF0" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <!-- 다리 -->
+  <ellipse cx="168" cy="372" rx="22" ry="14" fill="#D8CBF0" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="232" cy="372" rx="22" ry="14" fill="#D8CBF0" stroke="#4A4358" stroke-width="4"/>
+  <!-- 당근 (오른 앞발로 들기) -->
+  <path d="M222 208 L248 208 L236 266 Q234 274 232 266 Z" fill="#F6B25E" stroke="#4A4358" stroke-width="3.5" stroke-linejoin="round" transform="rotate(14 235 237)"/>
+  <path d="M232 205 Q235 195 240 202 M235 204 Q238 192 244 200 M228 206 Q230 196 236 202" stroke="#8FCB8A" stroke-width="4" stroke-linecap="round" transform="rotate(14 235 237)"/>
+  <!-- 오른앞발 -->
+  <ellipse cx="252" cy="258" rx="17" ry="14" fill="#E7E1F5" stroke="#4A4358" stroke-width="4"/>
+  <!-- 머리 -->
+  <circle cx="200" cy="188" r="86" fill="#E7E1F5" stroke="#4A4358" stroke-width="4"/>
+  <!-- 귀 (세모, 고양이) -->
+  <path d="M132 130 L108 62 L172 108 Z" fill="#E7E1F5" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M138 122 L122 82 L164 108 Z" fill="#D8CBF0"/>
+  <path d="M268 130 L292 62 L228 108 Z" fill="#E7E1F5" stroke="#4A4358" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M262 122 L278 82 L236 108 Z" fill="#D8CBF0"/>
+  <!-- 주둥이 -->
+  <ellipse cx="200" cy="212" rx="34" ry="22" fill="#FBF9FE" stroke="#4A4358" stroke-width="3.5"/>
+  <path d="M200 200 L192 210 L208 210 Z" fill="#F2A0B8" stroke="#4A4358" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M200 210 Q200 218 200 218 M200 218 Q188 228 178 224 M200 218 Q212 228 222 224" stroke="#4A4358" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- 수염 -->
+  <path d="M120 205 L160 200 M120 218 L160 216 M280 205 L240 200 M280 218 L240 216" stroke="#4A4358" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 눈 -->
+  <circle cx="170" cy="180" r="11" fill="#4A4358"/>
+  <circle cx="230" cy="180" r="11" fill="#4A4358"/>
+  <circle cx="174" cy="176" r="3.5" fill="#FFFFFF"/>
+  <circle cx="234" cy="176" r="3.5" fill="#FFFFFF"/>
+  <!-- 볼 홍조 -->
+  <ellipse cx="150" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+  <ellipse cx="250" cy="205" rx="13" ry="8" fill="#F8C9DC" opacity="0.8"/>
+  <!-- 왼앞발 (몸 옆) -->
+  <ellipse cx="150" cy="270" rx="16" ry="13" fill="#E7E1F5" stroke="#4A4358" stroke-width="4"/>
+</svg>

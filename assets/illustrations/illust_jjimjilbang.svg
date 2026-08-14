@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- 찜질방: 강아지, 양머리 수건을 쓴 모습 -->
+  <ellipse cx="200" cy="308" rx="92" ry="76" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
+  <!-- 편안히 모은 팔 -->
+  <ellipse cx="150" cy="330" rx="17" ry="14" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="250" cy="330" rx="17" ry="14" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
+  <!-- 다리 -->
+  <ellipse cx="170" cy="374" rx="22" ry="14" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="230" cy="374" rx="22" ry="14" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
+  <!-- 머리 -->
+  <circle cx="200" cy="192" r="86" fill="#F0D9BC" stroke="#4A4358" stroke-width="4"/>
+  <!-- 늘어진 귀 -->
+  <path d="M120 162 C 80 176, 72 230, 108 254 C 126 264, 138 238, 130 210 C 126 192, 128 176, 120 162 Z" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
+  <path d="M280 162 C 320 176, 328 230, 292 254 C 274 264, 262 238, 270 210 C 274 192, 272 176, 280 162 Z" fill="#DEBB8C" stroke="#4A4358" stroke-width="4"/>
+  <!-- 양머리 찜질방 수건 -->
+  <ellipse cx="200" cy="128" rx="70" ry="46" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
+  <circle cx="140" cy="118" r="22" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
+  <circle cx="260" cy="118" r="22" fill="#FBF7F1" stroke="#4A4358" stroke-width="4"/>
+  <path d="M150 152 Q200 172 250 152" stroke="#4A4358" stroke-width="3.5" fill="none" opacity="0.5"/>
+  <!-- 주둥이 -->
+  <ellipse cx="200" cy="214" rx="40" ry="28" fill="#FCF6EC" stroke="#4A4358" stroke-width="4"/>
+  <ellipse cx="200" cy="203" rx="10" ry="8" fill="#4A4358"/>
+  <path d="M180 222 Q200 234 220 222" stroke="#4A4358" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- 개운한 눈 (반달) -->
+  <path d="M158 182 Q170 172 182 182" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M218 182 Q230 172 242 182" stroke="#4A4358" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- 볼 홍조 (열기로 발그레) -->
+  <ellipse cx="150" cy="212" rx="15" ry="10" fill="#F8C9DC" opacity="0.9"/>
+  <ellipse cx="250" cy="212" rx="15" ry="10" fill="#F8C9DC" opacity="0.9"/>
+</svg>
