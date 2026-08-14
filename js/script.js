@@ -80,7 +80,7 @@ const memoryCards = [
     title: '찜질방',
     place: '동묘앞 스파렉스',
     desc: '원래 계획이던 한강수영장이 취소되면서 대신 찾은 찜질방! 따뜻한 열기 속에서 몸도 마음도 노곤해진 하루였어요.',
-    episode: '세연이가 계란으로 선우 머리를 콩 때려서 릴스를 찍은 사건 발생!',
+    episode: '재민이가 계란으로 선우 머리를 콩 때려서 릴스를 찍은 사건 발생!',
     illust: 'assets/illustrations/illust_jjimjilbang.svg',
     tone: 'purple'
   }
