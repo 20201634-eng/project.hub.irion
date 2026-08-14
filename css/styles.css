@@ -340,13 +340,13 @@ button {
    같은 비율로 함께 커져야 커진 카드 안에서 여백이 어색해지지 않는다 */
 .card {
   position: relative;
-  width: 153px;
-  min-height: 228px;
-  border-radius: 14px;
+  width: 184px;
+  min-height: 274px;
+  border-radius: 17px;
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(22px) saturate(150%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
-  padding: 18px 16px 18px;
+  padding: 22px 19px 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -395,23 +395,23 @@ button {
 }
 
 .card-illust {
-  width: 79px;
-  height: 79px;
-  margin-bottom: 13px;
+  width: 95px;
+  height: 95px;
+  margin-bottom: 16px;
   filter: drop-shadow(0 6px 10px rgba(120, 100, 160, 0.18));
 }
 
 .card-name {
   font-family: 'Jua', 'Yeonseong', sans-serif;
-  font-size: 0.79rem;
+  font-size: 0.95rem;
   font-weight: normal;
   color: var(--text-dark);
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .card-desc {
   font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   line-height: 1.55;
   color: var(--text-soft);
 }
@@ -516,16 +516,16 @@ button {
     --card-gap: 22px;
   }
   .card {
-    width: 131px;
-    min-height: 196px;
+    width: 157px;
+    min-height: 235px;
   }
-  .card-illust { width: 65px; height: 65px; }
+  .card-illust { width: 78px; height: 78px; }
 }
 
 @media (max-width: 560px) {
   .card {
-    width: min(43vw, 146px);
-    min-height: 220px;
+    width: min(52vw, 175px);
+    min-height: 264px;
   }
   .card:hover { transform: scale(1.04) translateY(-6px); }
 }
